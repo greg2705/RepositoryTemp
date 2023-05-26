@@ -1,16 +1,18 @@
-task:
-  _target_: pyannote.audio.tasks.Segmentation
-  duration: 5.0
-  max_num_speakers: 3
-model:
-  _target_: pyannote.audio.models.segmentation.PyanNet
-  sincnet:
-    stride: 10
-  lstm:
-    hidden_size: 128
-    num_layers: 4
-    bidirectional: true
-    monolithic: true
-  linear:
-    hidden_size: 128
-    num_layers: 2
+pipeline:
+  name: pyannote.audio.pipelines.SpeakerDiarization
+  params:
+    clustering: AgglomerativeClustering
+    embedding: speechbrain/spkrec-ecapa-voxceleb
+    embedding_batch_size: 32
+    embedding_exclude_overlap: true
+    segmentation: pyannote/segmentation@2022.07
+    segmentation_batch_size: 32
+
+params:
+  clustering:
+    method: centroid
+    min_cluster_size: 15
+    threshold: 0.7153814381597874
+  segmentation:
+    min_duration_off: 0.5817029604921046
+    threshold: 0.4442333667381752
