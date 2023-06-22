@@ -2,9 +2,10 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import transformers
 import torch
 
-model = "tiiuae/falcon-40b-instruct"
+model_name = "tiiuae/falcon-40b-instruct"
 
-tokenizer = AutoTokenizer.from_pretrained(model)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", trust_remote_code=True)
 pipeline = transformers.pipeline(
     "text-generation",
     model=model,
@@ -23,4 +24,3 @@ sequences = pipeline(
 )
 for seq in sequences:
     print(f"Result: {seq['generated_text']}")
-
