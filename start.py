@@ -1,4 +1,4 @@
-#!/bin/bash
+
 set -o nounset -o errexit
 
 CONF_DIR="$HOME/.jupyter"
